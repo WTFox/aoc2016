@@ -1,6 +1,6 @@
 use clap::Parser;
 
-use aoc2016::{day01, day02, day03, day04, day05, read_input};
+use aoc2016::{day01, day02, day03, day04, day05, day06, read_input};
 
 #[derive(Parser, Debug)]
 #[command(version, about, long_about = None)]
@@ -38,6 +38,11 @@ fn main() {
             let input = read_input(day);
             println!("Part one: {}", day05::part_one(&input));
             println!("Part two: {}", day05::part_two(&input));
+        }
+        6 => {
+            let input = read_input(day);
+            println!("Part one: {}", day06::part_one(&input));
+            println!("Part two: {}", day06::part_two(&input));
         }
         _ => println!("Day {} not implemented yet", day),
     }
