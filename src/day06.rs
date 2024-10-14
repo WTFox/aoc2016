@@ -1,67 +1,56 @@
-pub fn part_one(input: &str) -> String {
-    let mut result = String::new();
+pub fn process_input<F>(input: &str, select_char: F) -> String
+where
+    F: Fn(&[usize; 26]) -> char,
+{
+    let lines: Vec<&[u8]> = input.lines().map(|line| line.as_bytes()).collect();
+    if lines.is_empty() {
+        return String::new();
+    }
+    let line_length = lines[0].len();
+    let mut result = String::with_capacity(line_length);
 
-    let line_length = input.lines().next().unwrap().len();
-    let mut lines: Vec<Vec<u8>> = vec![];
-    for i in 0..line_length {
-        for line in input.lines() {
-            if line.len() != line_length {
-                panic!("Line length mismatch");
-            }
-            let c = line.chars().nth(i).unwrap();
-            let index = (c as u8 - b'a') as usize;
-            if lines.len() <= i {
-                lines.push(vec![0; 26]);
-            }
-            lines[i][index] += 1;
+    for &line in &lines {
+        if line.len() != line_length {
+            panic!("Line length mismatch");
         }
+    }
 
-        let mut max = 0;
-        let mut max_index = 0;
-        lines[i].iter().enumerate().for_each(|(index, &count)| {
-            if count > max {
-                max = count;
-                max_index = index;
+    for i in 0..line_length {
+        let mut counts = [0usize; 26];
+        for line in &lines {
+            let c = line[i];
+            if c.is_ascii_lowercase() {
+                counts[(c - b'a') as usize] += 1;
             }
-        });
-
-        result.push((max_index as u8 + b'a') as char);
+        }
+        let selected_char = select_char(&counts);
+        result.push(selected_char);
     }
 
     result
 }
 
+pub fn part_one(input: &str) -> String {
+    process_input(input, |counts| {
+        let (max_index, _) = counts
+            .iter()
+            .enumerate()
+            .max_by_key(|&(_index, &count)| count)
+            .unwrap();
+        (b'a' + max_index as u8) as char
+    })
+}
+
 pub fn part_two(input: &str) -> String {
-    let mut result = String::new();
-
-    let line_length = input.lines().next().unwrap().len();
-    let mut lines: Vec<Vec<u8>> = vec![];
-    for i in 0..line_length {
-        for line in input.lines() {
-            if line.len() != line_length {
-                panic!("Line length mismatch");
-            }
-            let c = line.chars().nth(i).unwrap();
-            let index = (c as u8 - b'a') as usize;
-            if lines.len() <= i {
-                lines.push(vec![0; 26]);
-            }
-            lines[i][index] += 1;
-        }
-
-        let mut count_so_far = lines[i][0];
-        let mut least_common = 0;
-        lines[i].iter().enumerate().for_each(|(index, &count)| {
-            if count < count_so_far && count != 0 {
-                count_so_far = count;
-                least_common = index;
-            }
-        });
-
-        result.push((least_common as u8 + b'a') as char);
-    }
-
-    result
+    process_input(input, |counts| {
+        let (min_index, _) = counts
+            .iter()
+            .enumerate()
+            .filter(|&(_index, &count)| count > 0)
+            .min_by_key(|&(_index, &count)| count)
+            .unwrap();
+        (b'a' + min_index as u8) as char
+    })
 }
 
 #[cfg(test)]
