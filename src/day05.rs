@@ -45,9 +45,17 @@ pub fn part_two(input: &str) -> String {
 mod tests {
     use super::*;
 
+    #[ignore = "slow"]
     #[test]
     fn test_part_one_example() {
         let input = "abc";
         assert_eq!(part_one(input), "18f47a30");
+    }
+
+    #[ignore = "slow"]
+    #[test]
+    fn test_part_two_example() {
+        let input = "abc";
+        assert_eq!(part_two(input), "05ace8e3");
     }
 }
