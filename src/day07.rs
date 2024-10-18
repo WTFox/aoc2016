@@ -1,21 +1,18 @@
 use itertools::Itertools;
 
 pub fn part_one(input: &str) -> usize {
-    input
-        .trim()
-        .lines()
-        .map(supports_tls)
-        .filter(|x| *x)
-        .count()
+    process_input(input, supports_tls)
 }
 
 pub fn part_two(input: &str) -> usize {
-    input
-        .trim()
-        .lines()
-        .map(supports_ssl)
-        .filter(|x| *x)
-        .count()
+    process_input(input, supports_ssl)
+}
+
+fn process_input<F>(input: &str, callback: F) -> usize
+where
+    F: Fn(&str) -> bool,
+{
+    input.trim().lines().map(callback).filter(|x| *x).count()
 }
 
 fn is_abba(haystack: &str) -> bool {
