@@ -82,7 +82,7 @@ mod tests {
 
     #[test]
     fn test_part_one_input() {
-        let input = include_str!("../inputs/day02.txt");
+        let input = include_str!("../../inputs/day02.txt");
         assert_eq!(part_one(input), "36629");
     }
 
@@ -94,7 +94,7 @@ mod tests {
 
     #[test]
     fn test_part_two_input() {
-        let input = include_str!("../inputs/day02.txt");
+        let input = include_str!("../../inputs/day02.txt");
         assert_eq!(part_two(input), "99C3D");
     }
 }

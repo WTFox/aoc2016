@@ -95,13 +95,13 @@ mod test {
 
     #[test]
     fn test_part_one_input() {
-        let input = include_str!("../inputs/day04.txt");
+        let input = include_str!("../../inputs/day04.txt");
         assert_eq!(part_one(input), 278221);
     }
 
     #[test]
     fn test_part_two_input() {
-        let input = include_str!("../inputs/day04.txt");
+        let input = include_str!("../../inputs/day04.txt");
         assert_eq!(part_two(input), 267);
     }
 

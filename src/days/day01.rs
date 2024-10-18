@@ -68,14 +68,14 @@ mod tests {
 
     #[test]
     fn test_part_one_input() {
-        let input = include_str!("../inputs/day01.txt");
+        let input = include_str!("../../inputs/day01.txt");
         let result = part_one(input);
         assert_eq!(result, 243);
     }
 
     #[test]
     fn test_part_two_input() {
-        let input = include_str!("../inputs/day01.txt");
+        let input = include_str!("../../inputs/day01.txt");
         let result = part_two(input);
         assert_eq!(result, 142);
     }

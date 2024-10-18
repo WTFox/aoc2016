@@ -81,7 +81,7 @@ enarar"#;
 
     #[test]
     fn test_part_one_input() {
-        let input = include_str!("../inputs/day06.txt");
+        let input = include_str!("../../inputs/day06.txt");
         assert_eq!(part_one(input), "qoclwvah");
     }
 
@@ -92,7 +92,7 @@ enarar"#;
 
     #[test]
     fn test_part_two_input() {
-        let input = include_str!("../inputs/day06.txt");
+        let input = include_str!("../../inputs/day06.txt");
         assert_eq!(part_two(input), "ryrgviuv");
     }
 }
