@@ -49,6 +49,11 @@ fn main() {
             println!("Part one: {}", aoc2016::day07::part_one(&input));
             println!("Part two: {}", aoc2016::day07::part_two(&input));
         }
+        8 => {
+            let input = read_input(day);
+            println!("Part one: {}", aoc2016::day08::part_one(&input));
+            println!("Part two: {}", aoc2016::day08::part_two(&input));
+        }
         _ => println!("Day {} not implemented yet", day),
     }
 }
