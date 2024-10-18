@@ -15,31 +15,20 @@ where
     input.trim().lines().map(callback).filter(|x| *x).count()
 }
 
-fn is_abba(haystack: &str) -> bool {
-    for (a, b, c, d) in haystack.chars().tuple_windows() {
-        if a != b && a == d && b == c {
-            return true;
-        }
-    }
-    false
-}
-
 fn parse_sequences(input: &str) -> (Vec<String>, Vec<String>) {
-    let mut hypernets = vec![];
-    let mut supernets = vec![];
     let mut inside_brackets = false;
-
-    let mut current_sequence: String = String::from("");
+    let (mut hypernets, mut supernets) = (vec![], vec![]);
+    let mut current_sequence = String::from("");
     for c in input.chars() {
         match c {
             '[' => {
-                supernets.push(current_sequence.clone());
                 inside_brackets = true;
+                supernets.push(current_sequence.clone());
                 current_sequence.clear();
             }
             ']' => {
-                hypernets.push(current_sequence.clone());
                 inside_brackets = false;
+                hypernets.push(current_sequence.clone());
                 current_sequence.clear();
             }
             _ => current_sequence.push(c),
@@ -47,14 +36,24 @@ fn parse_sequences(input: &str) -> (Vec<String>, Vec<String>) {
     }
 
     if !current_sequence.is_empty() {
+        let seq = current_sequence.clone();
         if inside_brackets {
-            hypernets.push(current_sequence.clone());
+            hypernets.push(seq);
         } else {
-            supernets.push(current_sequence.clone());
+            supernets.push(seq);
         }
     }
 
     (hypernets, supernets)
+}
+
+fn is_abba(haystack: &str) -> bool {
+    for (a, b, c, d) in haystack.chars().tuple_windows() {
+        if a != b && a == d && b == c {
+            return true;
+        }
+    }
+    false
 }
 
 fn supports_tls(addr: &str) -> bool {
